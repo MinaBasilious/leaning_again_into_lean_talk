@@ -34,7 +34,7 @@ Full list with notes: `reading.md`.
 ## Contents
 
 ```
-slides/    the talk, one HTML file (open in a browser)
+docs/    the talk, one HTML file (open in a browser)
 demo/      Demo.lean, every Lean snippet from the talk
 notes/     summary.md, faq.md, caveats.md
 reading.md annotated further reading
@@ -45,7 +45,7 @@ assets/    QR code for the course interest form
 
 ## Slides
 
-Open `slides/leaning_again_into_lean_slides.html`. Space, right arrow or click
+Open `docs/leaning_again_into_lean_slides.html`. Space, right arrow or click
 for next, left arrow for back, `F` for fullscreen. Fonts load from Google
 Fonts; offline it falls back to system fonts.
 
