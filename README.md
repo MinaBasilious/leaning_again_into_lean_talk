@@ -48,7 +48,7 @@ assets/    QR code for the course interest form
 Open `docs/index.html`. Space, right arrow or click
 for next, left arrow for back, `F` for fullscreen. Fonts load from Google
 Fonts; offline it falls back to system fonts.
-Or just open (https://minabasilious.github.io/leaning_again_to_lean_talk).
+Or just open (https://minabasilious.github.io/leaning_again_into_lean_talk).
 ## Try the demo
 
 You can just use [Lean Web](https://live.lean-lang.org/),
