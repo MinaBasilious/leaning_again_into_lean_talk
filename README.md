@@ -34,7 +34,7 @@ Full list with notes: `reading.md`.
 ## Contents
 
 ```
-docs/    the talk, one HTML file (open in a browser)
+docs/      the talk, one HTML file (open in a browser)
 demo/      Demo.lean, every Lean snippet from the talk
 notes/     summary.md, faq.md, caveats.md
 reading.md annotated further reading
