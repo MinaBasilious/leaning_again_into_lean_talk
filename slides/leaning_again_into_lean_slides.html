@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Leaning again into Lean</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&family=Caveat:wght@600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0F2A3A;--amber:#F2B84B;--teal:#1F6F8B;--mist:#D3E0E7;--grey:#5f7482}
+*{box-sizing:border-box}
+body{margin:0;background:#000;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+#d{width:1280px;height:720px;position:absolute;left:50%;top:50%;transform-origin:0 0}
+section{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;padding:56px 90px;background:#fff;color:var(--ink)}
+section.on{display:flex}
+section.dark{background:var(--ink);color:#f2f6f8}
+h2{font:700 46px 'Source Serif 4',Georgia,serif;margin:0}
+.bar{width:84px;height:6px;background:var(--amber);margin:14px 0 34px}
+ul{list-style:none;padding:0;margin:0;font-size:34px;line-height:1.35}
+li{margin:16px 0;padding-left:36px;position:relative}
+li::before{content:'';position:absolute;left:0;top:.5em;width:14px;height:14px;background:var(--amber)}
+.big{font:700 56px/1.25 'Source Serif 4',Georgia,serif;text-align:center}
+.t{color:var(--teal)}.am{color:var(--amber)}
+.sub{font-size:30px;color:var(--mist);margin-top:18px}
+.lg{font-size:32px}
+pre{font:500 29px/1.5 'JetBrains Mono',ui-monospace,Menlo,monospace;background:#f1f5f8;padding:20px 28px;border-radius:8px;margin:10px 0}
+.k{color:var(--teal);font-weight:700}.c{color:var(--grey)}
+.src{position:absolute;left:90px;bottom:30px;font-size:18px;color:var(--grey)}
+.f{opacity:0;transition:opacity .25s}.f.v{opacity:1}
+.cols{display:flex;gap:56px}.cols>div{flex:1}
+.q{display:flex;align-items:center;gap:24px;font-size:32px;margin:13px 0}
+.q b{font:700 40px 'Source Serif 4',serif;color:var(--amber);width:34px}
+.q span{flex:1}
+.tag{font-size:21px;font-style:normal;font-weight:600;padding:6px 16px;border-radius:20px;background:var(--mist)}
+.tag.r{background:var(--amber)}
+.tag2{font:600 52px Caveat,cursive;color:#97E0B7;transform:rotate(-2deg);display:inline-block}
+.qr{background:#fff;border-radius:14px;padding:14px;width:330px;height:330px}
+.qr svg{width:100%;height:100%;display:block}
+#n{position:fixed;right:16px;bottom:8px;color:#7d95a3;font:13px Inter,sans-serif}
+</style></head><body>
+<div id="d">
+
+<section class="dark">
+<div class="am" style="font-size:24px">Cairo University · Faculty of Science · Mathematics Club</div>
+<div style="font:700 92px/1.05 'Source Serif 4',Georgia,serif;margin-top:28px">Leaning again<br>into Lean <span class="tag2">in the age of AI</span></div>
+<div class="sub">What a machine-checked proof tells you, and what it leaves to us</div>
+<div style="font-size:26px;margin-top:44px">Mina Basilious · Math Major, Third Year</div>
+<div style="font-size:22px;color:var(--mist);margin-top:8px">Sat 14/11, 3:00 PM · Hall 15</div>
+</section>
+
+<section><div class="big">A Lean-checked proof settles whether the proof is correct.<br><span class="t">It leaves open whether the theorem is the right one.</span></div></section>
+
+<section><h2>Two announcements, both with a Lean proof</h2><div class="bar"></div>
+<div class="cols"><div><div class="lg"><b>Fermat’s Last Theorem</b></div><div style="font-size:26px;margin:8px 0 18px">Anthropic, September 2026</div><div style="font:700 70px 'Source Serif 4',serif">13 million</div><div style="font-size:26px">lines of Lean</div></div>
+<div><div class="lg"><b>Navier–Stokes</b></div><div style="font-size:26px;margin:8px 0 18px">OpenAI’s announced proof</div><div style="font:700 70px 'Source Serif 4',serif">640 thousand</div><div style="font-size:26px">lines of Lean</div></div></div>
+<div class="src">Anthropic, “Formalizing Fermat’s Last Theorem”; K. Buzzard, Xena blog, 12 Nov 2026.</div></section>
+
+<section><div class="big">Checked in Lean.<br><span class="t">Checked for what?</span></div></section>
+
+<section><h2>Lean in one picture</h2><div class="bar"></div>
+<div style="display:flex;align-items:center;gap:36px;font-size:34px;margin-top:20px">
+<div><div style="border:3px solid var(--ink);border-radius:8px;padding:14px 26px;margin:10px 0">statement</div><div style="border:3px solid var(--ink);border-radius:8px;padding:14px 26px;margin:10px 0">proof</div></div>
+<div style="font-size:50px">→</div>
+<div style="background:var(--ink);color:#fff;border-radius:8px;padding:24px 34px">small kernel</div>
+<div style="font-size:50px">→</div>
+<div class="t" style="border:3px solid var(--teal);border-radius:8px;padding:14px 26px">accepted</div></div>
+<div class="lg" style="margin-top:44px">Tactics and AI help write the proof. Only the kernel decides.</div></section>
+
+<section><h2>Demo: a proof</h2><div class="bar"></div>
+<pre class="lean">theorem and_dup (P : Prop) : P → P ∧ P := by
+  intro h
+  constructor
+  · exact h
+  · exact h</pre><div class="lg">If P holds, then P and P holds.</div></section>
+
+<section><h2>Demo: what the file depends on</h2><div class="bar"></div>
+<pre class="lean">theorem two_plus_two : 2 + 2 = 4 := sorry
+#print axioms two_plus_two   -- uses sorryAx
+
+theorem lem (P : Prop) : P ∨ ¬P := Classical.em P
+#print axioms lem            -- standard axioms</pre></section>
+
+<section><h2>Demo: a hidden assumption</h2><div class="bar"></div>
+<pre class="lean">axiom cheat : ∀ P : Prop, P
+theorem anything (P : Prop) : P := cheat P
+#print axioms anything   -- depends on cheat</pre>
+<div class="lg">It compiles. The axiom list gives it away.</div></section>
+
+<section><h2>“Checked in Lean” means</h2><div class="bar"></div>
+<ul><li>No <span style="font-family:'JetBrains Mono',monospace">sorry</span></li><li>Only the standard axioms</li><li>The kernel accepted it</li><li>Anyone can rerun the check</li></ul></section>
+
+<section><h2>Would you referee this?</h2><div class="bar"></div>
+<pre class="lean">def dist (a b : Nat) : Nat := a - b
+
+theorem tri (a b c : Nat) :
+    dist a c ≤ dist a b + dist b c</pre>
+<div class="lg">On Nat, subtraction stops at zero: 1 − 2 = 0.</div></section>
+
+<section><h2>Lean accepts it</h2><div class="bar"></div>
+<pre class="lean">def dist (a b : Nat) : Nat := a - b
+
+theorem tri (a b c : Nat) :
+    dist a c ≤ dist a b + dist b c := by
+  unfold dist
+  omega</pre>
+<pre class="lean f">#eval dist 1 2   -- 0
+#eval dist 2 1   -- 1</pre>
+<div class="lg f">The proof is correct. The theorem is about the wrong object.</div></section>
+
+<section><h2>Spot the bug</h2><div class="bar"></div>
+<pre class="lean">def FermatsLastTheorem : Prop :=
+  ∀ a b c n : ℕ, n ≥ 3 → a^n + b^n ≠ c^n</pre>
+<div class="lg f" style="margin-top:20px">It compiles. But ℕ contains 0:<br>a = b = c = 0 and n = 3 is a counterexample.</div>
+<div class="src">Example from K. Buzzard, Xena blog, 12 Nov 2026.</div></section>
+
+<section><div class="big">Lean checks that the proof proves the statement as written.<br><span class="t">Only a reader can check it is the one we meant.</span></div></section>
+
+<section><h2>The checker is a program</h2><div class="bar"></div>
+<ul><li>The theory itself could be flawed</li><li>Or the program could have a bug</li></ul>
+<div class="lg t" style="margin-top:40px">Both have happened somewhere. In Lean, the bug came first.</div></section>
+
+<section><h2>Collatz, July 2026</h2><div class="bar"></div>
+<ul><li>A Lean “disproof” of the Collatz conjecture</li><li>The official kernel and Nanoda both accepted it</li><li>Cause: a bug with nested inductive types (issue #14576)</li><li>Fixed within hours</li></ul>
+<div class="src">Lean kernel soundness bug #14576, postmortem by L. de Moura.</div></section>
+
+<section><h2>The response: more kernels</h2><div class="bar"></div>
+<ul style="font-size:30px"><li><b>nanoda</b>: an independent implementation</li><li><b>lean4lean</b>: a reimplementation in Lean, verification in progress</li><li><b>con-leche</b>: written in Lean, proven sound against a model</li><li><b>con-ron</b>: a Rust port, proven to refine con-leche</li></ul>
+<div class="src">L. de Moura, “Lean Now Ships with Verified Kernels”, 15 Oct 2026. Rerun with lake check --paranoid (confirm in the docs).</div></section>
+
+<section><h2>The idea behind “proven sound”</h2><div class="bar"></div>
+<ul><li>Give every type a meaning as a set</li><li>A function type means the set of functions</li><li><span style="font-family:'JetBrains Mono',monospace">False</span> means the empty set</li></ul>
+<div class="lg t f" style="margin-top:36px">If the kernel only accepts what has such a meaning,<br>no closed proof of False can exist.</div></section>
+
+<section><h2>What remains</h2><div class="bar"></div>
+<div class="cols lg"><div><b>The machine</b><br>Do the steps follow?</div><div><b>Us</b><br>What was claimed?</div></div>
+<div class="lg t" style="margin-top:44px">Redundancy handles accidents. Judgment handles meaning.</div></section>
+
+<section><h2>Four questions about a Lean proof</h2><div class="bar"></div>
+<div class="q f"><b>1</b><span>Does the Lean statement match the informal one?</span><i class="tag r">A reader</i></div>
+<div class="q f"><b>2</b><span>Does the code compile?</span><i class="tag">A command</i></div>
+<div class="q f"><b>3</b><span>Does it prove the theorem as stated?</span><i class="tag">A command</i></div>
+<div class="q f"><b>4</b><span>Does it exploit a bug in the kernel?</span><i class="tag">A command</i></div>
+<div class="src">After K. Buzzard, Xena blog, 12 Nov 2026.</div></section>
+
+<section><div class="big">Three questions have a command.<br><span class="t">One needs a reader.</span></div></section>
+
+<section><h2>A type is a label, not a claim</h2><div class="bar"></div>
+<ul><li>“x ∈ A” is a claim you can prove or disprove</li><li>“x : A” says what sort of thing x is</li><li>Like units: 3 metres plus 5 seconds is not false, it is meaningless</li><li>In Lean, the type of a proof is the statement</li></ul></section>
+
+<section><h2>Reading types</h2><div class="bar"></div>
+<pre class="lean">#eval (3 : Nat) - 5   -- 0
+#eval (3 : Int) - 5   -- -2
+#check and_dup        -- prints the statement</pre>
+<div class="lg">Same symbols, different types, different meaning.</div></section>
+
+<section><h2>The mini course: three weeks</h2><div class="bar"></div>
+<div class="lg" style="margin-bottom:18px">Lean as a language, or type theory without Lean.<br><span class="t">This course does both.</span></div>
+<ul style="font-size:30px"><li><b class="t">Week 1</b> Types vs sets, Curry-Howard, first-order logic</li><li><b class="t">Week 2</b> Inductive types, the naturals, induction</li><li><b class="t">Week 3</b> Sets as types, and Lean on larger projects</li></ul></section>
+
+<section><h2>After three weeks</h2><div class="bar"></div>
+<ul><li>Translate a statement between informal mathematics and Lean, in both directions</li><li>Prove basic facts about arithmetic and logic</li><li>Spot a trap like dist without running anything</li></ul></section>
+
+<section><h2>Open discussion</h2><div class="bar"></div>
+<ul style="font-size:30px"><li>How does the model construction really work?</li><li>Is a kernel proven in Lean circular?</li><li>Should a formal proof carry authority over human judgment?</li><li>Can the display of a statement differ from what was checked?</li><li>Who has checked the definitions behind a huge statement?</li></ul></section>
+
+<section class="dark" style="flex-direction:row;align-items:center;gap:70px">
+<div style="flex:1"><div style="font:700 70px 'Source Serif 4',serif">Interested?</div>
+<div class="sub">Three weekly lectures, exercises in between.<br>No Lean or type theory needed.</div>
+<div style="font-size:24px;margin-top:40px;color:var(--amber)">basiliousmina2@gmail.com<br>minabasilious.github.io</div></div>
+<div><div class="qr"><svg viewBox="0 0 33 33" class="segno"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#0f2a3a" d="M2 2.5h7m1 0h2m2 0h2m1 0h1m4 0h1m1 0h7m-29 1h1m5 0h1m1 0h1m1 0h1m1 0h2m3 0h2m1 0h1m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m2 0h1m1 0h2m3 0h1m1 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h4m2 0h2m3 0h1m2 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m5 0h1m1 0h1m3 0h2m2 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m3 0h1m2 0h1m2 0h1m2 0h1m2 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h1m1 0h1m1 0h1m4 0h1m2 0h1m-21 1h1m1 0h2m1 0h3m1 0h2m2 0h1m1 0h1m1 0h2m1 0h1m1 0h1m2 0h1m1 0h2m-24 1h1m1 0h2m2 0h1m1 0h2m2 0h2m1 0h1m1 0h3m3 0h1m-29 1h1m2 0h1m1 0h5m2 0h2m2 0h1m9 0h2m-21 1h5m3 0h1m3 0h3m1 0h2m3 0h1m-25 1h4m2 0h1m3 0h2m1 0h2m1 0h2m3 0h2m-27 1h4m7 0h2m1 0h1m1 0h3m3 0h1m3 0h3m-28 1h3m2 0h1m2 0h2m2 0h1m3 0h1m1 0h1m1 0h1m2 0h1m1 0h3m-29 1h6m1 0h1m2 0h1m3 0h3m1 0h1m2 0h2m1 0h1m2 0h1m-28 1h2m1 0h2m1 0h1m1 0h2m1 0h2m1 0h1m3 0h1m2 0h1m2 0h2m1 0h1m-27 1h3m3 0h2m3 0h1m1 0h1m3 0h1m1 0h1m2 0h1m1 0h3m-28 1h1m1 0h1m1 0h1m1 0h1m2 0h2m2 0h3m1 0h1m2 0h1m2 0h1m2 0h1m-25 1h1m1 0h1m2 0h2m1 0h2m1 0h2m2 0h3m1 0h2m1 0h1m1 0h1m-26 1h4m1 0h1m1 0h1m1 0h2m1 0h5m2 0h7m-19 1h3m1 0h1m2 0h3m2 0h1m3 0h5m-29 1h7m1 0h5m1 0h1m2 0h1m1 0h2m1 0h1m1 0h2m1 0h1m-28 1h1m5 0h1m1 0h1m2 0h4m1 0h1m2 0h2m3 0h2m1 0h1m-28 1h1m1 0h3m1 0h1m3 0h2m4 0h2m2 0h5m1 0h2m-28 1h1m1 0h3m1 0h1m1 0h6m2 0h6m1 0h3m2 0h1m-29 1h1m1 0h3m1 0h1m1 0h3m2 0h1m2 0h3m4 0h1m2 0h1m1 0h1m-29 1h1m5 0h1m2 0h2m1 0h1m2 0h1m4 0h1m1 0h1m2 0h1m1 0h1m-28 1h7m1 0h1m2 0h2m2 0h1m2 0h3m6 0h1"/></svg></div><div style="text-align:center;font-size:22px;margin-top:14px;color:var(--mist)">Scan to sign up</div></div>
+</section>
+
+</div><div id="n"></div>
+<script>
+const S=[...document.querySelectorAll('section')],D=document.getElementById('d');let i=0;
+document.querySelectorAll('pre.lean').forEach(p=>{p.innerHTML=p.innerHTML.replace(/\b(theorem|def|by|intro|constructor|exact|unfold|omega|sorry|axiom|Type|Prop)\b/g,'<span class="k">$1</span>').replace(/(--.*)$/gm,'<span class="c">$1</span>')});
+function fit(){const s=Math.min(innerWidth/1280,innerHeight/720);D.style.transform='scale('+s+') translate(-50%,-50%)'}
+function show(n,end){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k==i));S[i].querySelectorAll('.f').forEach(e=>e.classList.toggle('v',!!end));document.getElementById('n').textContent=(i+1)+' / '+S.length;history.replaceState(null,'','#'+(i+1))}
+function next(){const h=S[i].querySelector('.f:not(.v)');h?h.classList.add('v'):show(i+1,false)}
+function prev(){const v=[...S[i].querySelectorAll('.f.v')];v.length?v.pop().classList.remove('v'):show(i-1,true)}
+addEventListener('keydown',e=>{const k=e.key;if([' ','ArrowRight','ArrowDown','PageDown','Enter'].includes(k)){e.preventDefault();next()}else if(['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(k)){e.preventDefault();prev()}else if(k=='Home')show(0);else if(k=='End')show(S.length-1,true);else if(k=='f')document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()});
+addEventListener('click',e=>e.clientX>innerWidth/3?next():prev());
+addEventListener('resize',fit);fit();show((parseInt(location.hash.slice(1))||1)-1,false);
+</script></body></html>
