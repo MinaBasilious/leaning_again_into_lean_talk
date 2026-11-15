@@ -53,7 +53,7 @@ Or just open (https://minabasilious.github.io/leaning_again_to_lean_talk).
 
 You can just use [Lean Web](https://live.lean-lang.org/),
 Or
-Install Lean 4 (https://lean-lang.org), then:
+Install [Lean 4](https://lean-lang.org), then:
 
 ```
 lake env lean demo/Demo.lean
