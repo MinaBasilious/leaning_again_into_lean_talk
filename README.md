@@ -67,7 +67,7 @@ A three-week course on Lean together with the type theory behind it, for people
 with no background. Details in `course.md`. To tell me you are interested:
 https://forms.gle/pUXhUXj2w8whXHEG8 (QR code in `assets/`).
 
-Site: https://minabasilious.github.io
+My Own Site: https://minabasilious.github.io
 
 ## A note on accuracy
 
