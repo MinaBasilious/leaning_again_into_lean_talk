@@ -30,7 +30,7 @@ whether `dist` is a distance. Benjamin Friedman adds that a mathematician also
 wants to be compelled to believe a result, which a certificate cannot do.
 
 ## Can the display of a statement differ from what was checked?
-Freek Wiedijk showed in 2010 that in Coq and HOL Light different terms can
+Freek Wiedijk showed in 2010 that in Coq (called Rocq now) and HOL Light different terms can
 print identically, for example `0` and `1` both displaying as `0` after a
 coercion. That was not shown for Lean. In Lean it is worth testing coercions,
 implicit arguments and notation, with `set_option pp.all true`.
